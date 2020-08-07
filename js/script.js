@@ -9,6 +9,7 @@ const moveO = [];
 const maxTurn = 9;
 let tttboard;
 let currentPlayer = 'player1';
+let gameMes = null;
 
 
 const winGrid = [
@@ -38,9 +39,6 @@ const messages = document.querySelector('h2');
 /*----- cached element references -----*/
 
 const squareArray = Array.from(squares);
-
-
-
 
 /*----- functions -----*/
 
@@ -80,7 +78,7 @@ function waitClick(e) {
   if(x === ''){
   $(squares[index]).text('G');
   }
-  let boxIdX = $(squares[index]).attr("id");
+  let boxIdX = $(squares[index]).attr('id');
   moveX.push(boxIdX);
   moveX.sort();
   checkX = moveX.join();
@@ -88,6 +86,7 @@ function waitClick(e) {
   winGrid.forEach(function(wgX) {
    checkPx = wgX.join();
   if(checkPx === checkX){ let gameMes = 'Player 1 Won!';
+  $( squares ).unbind( "click", waitClick );
   pushMes(gameMes);
   }
   })
@@ -100,7 +99,7 @@ function waitClick(e) {
   if(z === ''){
   $(squares[index]).text('A');
   }
-  let boxIdO = $(squares[index]).attr("id");
+  let boxIdO = $(squares[index]).attr('id');
   moveO.push(boxIdO);
   moveO.sort();
   checkO = moveO.join();
@@ -108,6 +107,8 @@ function waitClick(e) {
   winGrid.forEach(function(wgO) {
    checkPo = wgO.join();
    if(checkPo === checkO){ let gameMes = 'Player 2 Won!';
+   $( squares ).unbind( "click", waitClick );
+
    pushMes(gameMes);
   }
   });
