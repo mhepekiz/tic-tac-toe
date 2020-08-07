@@ -2,19 +2,14 @@
 // I especially used both Jquery and JS to check my knowledge
 
 /*----- constants -----*/
-/*----- app's state (variables) -----*/
-/*----- cached element references -----*/
-/*----- event listeners -----*/
-/*----- functions -----*/
 
 
-const tttboard = '';
-const squares = document.querySelectorAll('.tttboard div')
-const playerDisplay = document.querySelector('#player')
-const messages = document.querySelector('h2');
 const moveX = [];
 const moveO = [];
 const maxTurn = 9;
+let tttboard;
+let currentPlayer = 'player1';
+
 
 const winGrid = [
   [0, 1, 2],
@@ -28,53 +23,99 @@ const winGrid = [
 ]
 
 
-  
-      $(window).on('load', () => {
-        
-              let currentPlayer = 'playerG'
-  
-              squares.forEach(square => {
-              $(square).click(waitClick);
-               })
-  
-              function waitClick(e) {
-              const squareArray = Array.from(squares)
-              const index = squareArray.indexOf(e.target)
-                
-              if(currentPlayer === 'playerG') {
-              let x = $(squares[index]).text();
-              if(x === ''){
-              $(squares[index]).text('G');
-              }
-              let boxIdX = $(squares[index]).attr("id");
-              moveX.push(boxIdX);
-              checkX = moveX.join();
+/*----- app's state (variables) -----*/
 
-              winGrid.forEach(function(wgx) {
-               checkPx = wgx.join();
-              if(checkPx === checkX){ console.log('Bu oyunu ' + currentPlayer + ' kazandi');
-            }
-              })
 
-              currentPlayer = 'playerA'
-              } else {
+
+
+/*----- event listeners -----*/
+
+const squares = document.querySelectorAll('.tttboard div')
+const playerDisplay = document.querySelector('#player')
+const messages = document.querySelector('h2');
+
+
+/*----- cached element references -----*/
+
+const squareArray = Array.from(squares);
+
+
+
+
+/*----- functions -----*/
+
+
+        function render(){
+    
+                squares.forEach(square => {
+                $(square).click(waitClick);
+                 })
+    
+                }   
              
-              var z = $(squares[index]).text();
-              if(z === ''){
-              $(squares[index]).text('A');
-              }
-              let boxIdO = $(squares[index]).attr("id");
-              moveO.push(boxIdO);
-              checkO = moveO.join();
+                
 
-              winGrid.forEach(function(wgo) {
-               checkPo = wgo.join();
-              if(checkPo === checkO){ console.log('Bu oyunu ' + currentPlayer + ' kazandi') }
-              });
-            currentPlayer = 'playerG'
-             }
-         }
+function pushMes(msg){
+  $( messages ).text( msg );
+}
+
+
   
+function init() {
+  tttboard = [
+  '', '', '',
+  '', '', '',
+  '', '', ''
+  ];
+  render();
+};
+
+
+function waitClick(e) {
+      
+  const index = squareArray.indexOf(e.target);
+
+  if(currentPlayer === 'player1') {
+  let x = $(squares[index]).text();
+  if(x === ''){
+  $(squares[index]).text('G');
+  }
+  let boxIdX = $(squares[index]).attr("id");
+  moveX.push(boxIdX);
+  moveX.sort();
+  checkX = moveX.join();
+
+  winGrid.forEach(function(wgX) {
+   checkPx = wgX.join();
+  if(checkPx === checkX){ let gameMes = 'Player 1 Won!';
+  pushMes(gameMes);
+  }
   })
 
-  
+
+  currentPlayer = 'player2'
+  } else {
+ 
+  var z = $(squares[index]).text();
+  if(z === ''){
+  $(squares[index]).text('A');
+  }
+  let boxIdO = $(squares[index]).attr("id");
+  moveO.push(boxIdO);
+  moveO.sort();
+  checkO = moveO.join();
+
+  winGrid.forEach(function(wgO) {
+   checkPo = wgO.join();
+   if(checkPo === checkO){ let gameMes = 'Player 2 Won!';
+   pushMes(gameMes);
+  }
+  });
+currentPlayer = 'player1'
+ }
+
+
+
+}
+
+init();

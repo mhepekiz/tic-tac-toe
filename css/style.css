@@ -2,8 +2,18 @@
 
     background-color: #444444;
     height: 100vh;
+    margin: 0;
   }
   
+  header {
+    display: flex;
+    background-color: rgb(152, 3, 4);
+    color: white;
+    font-family: Helvetica;
+    height: 6em;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+  }
   
   .tttboard
   {
