@@ -26,48 +26,46 @@ const winGrid = [
 
 /*----- app's state (variables) -----*/
 
-
+let squares = document.querySelectorAll('.tttboard div')
+let playerDisplay = document.querySelector('h3')
+let messages = document.querySelector('h2');
 
 
 /*----- event listeners -----*/
 
-const squares = document.querySelectorAll('.tttboard div')
-const playerDisplay = document.querySelector('#player')
-const messages = document.querySelector('h2');
-
+document.getElementById('reset-button').addEventListener('click', init);
 
 /*----- cached element references -----*/
-
 const squareArray = Array.from(squares);
+
 
 /*----- functions -----*/
 
 
         function render(){
-    
+
                 squares.forEach(square => {
                 $(square).click(waitClick);
                  })
-    
                 }   
              
-                
-
 function pushMes(msg){
   $( messages ).text( msg );
 }
-
-
-  
+ 
 function init() {
-  tttboard = [
-  '', '', '',
-  '', '', '',
-  '', '', ''
-  ];
-  render();
-};
 
+  let gameMes = 'Tic Tac Toe by Rookie';
+  for(i=0; i <= 8; i++){
+ 
+    squares[i].textContent = '';
+    
+  }
+  const moveX = [];
+  const moveO = [];
+  render();
+
+};
 
 function waitClick(e) {
       
@@ -78,6 +76,7 @@ function waitClick(e) {
   if(x === ''){
   $(squares[index]).text('G');
   }
+  
   let boxIdX = $(squares[index]).attr('id');
   moveX.push(boxIdX);
   moveX.sort();
@@ -95,7 +94,7 @@ function waitClick(e) {
   currentPlayer = 'player2'
   } else {
  
-  var z = $(squares[index]).text();
+  let z = $(squares[index]).text();
   if(z === ''){
   $(squares[index]).text('A');
   }
@@ -108,14 +107,11 @@ function waitClick(e) {
    checkPo = wgO.join();
    if(checkPo === checkO){ let gameMes = 'Player 2 Won!';
    $( squares ).unbind( "click", waitClick );
-
    pushMes(gameMes);
   }
   });
 currentPlayer = 'player1'
  }
-
-
 
 }
 

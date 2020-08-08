@@ -52,3 +52,12 @@
     font-family: Helvetica;
   
   }
+
+  .reset-button{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background:  rgb(152, 3, 4);
+    color: #FFF;
+
+}
